@@ -1,0 +1,20 @@
+# These credentials are for a local use, change it with your own configuration
+spring:
+  security:
+    user:
+      name: ${SECURITY_USERNAME:admin}
+      password: ${SECURITY_PASSWORD:admin123}
+  application:
+    name: tasks
+  datasource:
+    url: jdbc:mysql://localhost:3306/taskdb
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    show-sql: true
