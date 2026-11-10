@@ -1,4 +1,5 @@
 package com.example.tasks.entity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,5 +35,10 @@ public class Task {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"password", "authorities", "accountNonLocked", "accountNonExpired", "credentialsNonExpired", "enabled", "username"})
+    private User user;
 }
 
