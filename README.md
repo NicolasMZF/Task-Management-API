@@ -7,19 +7,21 @@ A simple REST API for managing tasks. I built this with Spring Boot while prepar
 - Java 17
 - Spring Boot 3.2.x
 - Spring Data JPA
+- JWT Authentication
 - MySQL
 - Maven
-- JUnit 5 for testing
+- JUnit 5
 
 ## What the API can do
 
-| Method | Endpoint | What it does |
-|--------|----------|--------------|
-| POST | `/api/tasks` | Create a new task |
-| GET | `/api/tasks` | Get all tasks |
-| GET | `/api/tasks/{id}` | Get one task by ID |
-| PUT | `/api/tasks/{id}` | Update an existing task |
-| DELETE | `/api/tasks/{id}` | Delete a task |
+| Method | Endpoint             | What it does                              |
+|--------|----------------------|-------------------------------------------|
+| POST   | `/api/auth/register` | Register a new user (returns JWT)         |
+| POST   | `/api/auth/login`    | Login and get the JWT                     |
+| POST   | `/api/tasks`         | Creates a task for the authenticated user |
+| GET    | `/api/tasks`         | Get all tasks for the authenticated user  |
+| PUT    | `/api/tasks/{id}`    | Updates a task for the authenticated user |
+| DELETE | `/api/tasks/{id}`    | Deletes a task for the authenticated user |
 
 It validates input data and handles errors with proper HTTP status codes (404, 400, 500).
 
@@ -28,7 +30,7 @@ It validates input data and handles errors with proper HTTP status codes (404, 4
 **You'll need:**
 - Java 17
 - MySQL 8.0
-- Maven (or just run it from IntelliJ)
+- Maven
 
 ## Steps:
 
@@ -51,10 +53,14 @@ src/
 │   ├── java/com/example/tasks/
 │   │   ├── config/          # Security config
 │   │   ├── controller/      # REST endpoints
-│   │   ├── entity/          # JPA entities
-│   │   └── repository/      # JPA repositories
+│   │   ├── dto/             # DTO objects
+│   │   ├── entity/          # Maps the object of the tables in the database 
+│   │   ├── exception/       # Global exception handler
+│   │   ├── repository/      # Handles the communication with the database
+│   │   ├── security/        # Handles authentication and authorization logic
+│   │   └── service/         # Validates business logic
 │   └── resources/
-│       └── application.yml
+│       └── application.yml  # Security and DB details
 └── test/
     └── com/example/tasks/
         └── repository/
